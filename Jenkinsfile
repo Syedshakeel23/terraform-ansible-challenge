@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/Syedshakeel23/terraform-ansible-challenge.git'
+                git branch: 'main', 'https://github.com/Syedshakeel23/terraform-ansible-challenge.git'
             }
         }
 

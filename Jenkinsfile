@@ -1,15 +1,12 @@
 
 pipeline {
     agent any
-
-    environment {
-        SSH_KEY = "/path/to/your/key.pem"
     }
 
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://your.git.repo/url.git'
+                git 'https://github.com/Syedshakeel23/terraform-ansible-challenge.git'
             }
         }
 

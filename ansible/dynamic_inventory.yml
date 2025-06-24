@@ -1,0 +1,10 @@
+
+plugin: jsonfile
+path: inventory.json
+groups:
+  frontend:
+    hosts:
+      - c8.local
+  backend:
+    hosts:
+      - u21.local

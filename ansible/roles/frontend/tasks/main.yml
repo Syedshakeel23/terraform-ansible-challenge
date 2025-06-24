@@ -1,0 +1,44 @@
+
+- name: Install Nginx
+  package:
+    name: nginx
+    state: present
+
+- name: Start and enable Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Configure Nginx proxy
+  copy:
+    dest: /etc/nginx/nginx.conf
+    content: |
+      events {
+        worker_connections 1024;
+      }
+
+      http {
+        include       mime.types;
+        default_type  application/octet-stream;
+        sendfile        on;
+        keepalive_timeout  65;
+
+        upstream backend_netdata {
+            server {{ hostvars['u21.local'].ansible_host }}:19999;
+        }
+
+        server {
+            listen 80;
+
+            location / {
+                proxy_pass http://backend_netdata;
+            }
+        }
+      }
+  notify: Restart Nginx
+
+- name: Restart Nginx
+  service:
+    name: nginx
+    state: restarted
